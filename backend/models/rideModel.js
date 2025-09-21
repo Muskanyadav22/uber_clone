@@ -1,9 +1,15 @@
 const pool = require("../db");
 
+function calculateFare(pickup, destination) {
+  
+  return 100 + Math.abs((pickup.length - destination.length) * 10);
+}
+
 const createRide = async (rider_id, pickup, destination, driver_id = null) => {
+  const fare = calculateFare(pickup, destination);
   const result = await pool.query(
-    "INSERT INTO rides (rider_id, pickup, destination, driver_id, status) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-    [rider_id, pickup, destination, driver_id, "pending"]
+    "INSERT INTO rides (rider_id, pickup, destination, driver_id, status, fare) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+    [rider_id, pickup, destination, driver_id, "pending", fare]
   );
   return result.rows[0];
 };

@@ -23,7 +23,6 @@ function LoginPage() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.user.role);
 
-      // Redirect based on role
       if (res.data.user.role === "admin") navigate("/admin");
       else if (res.data.user.role === "driver") navigate("/driver");
       else navigate("/rider");

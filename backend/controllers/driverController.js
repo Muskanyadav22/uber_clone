@@ -1,9 +1,8 @@
 const jwt = require("jsonwebtoken");
-const { createDriver, findDriverById, getAllDrivers, updateDriverStatus } = require("../models/driverModel");
+const { createDriver, findDriverById, findDriverByCarNumber, getAllDrivers, updateDriverStatus } = require("../models/driverModel");
 const { updateRideStatus, getRidesByDriverId } = require("../models/rideModel");
 require("dotenv").config();
 
-// Signup driver
 const signupDriver = async (req, res) => {
   try {
     const { name, car_number } = req.body;
@@ -14,11 +13,10 @@ const signupDriver = async (req, res) => {
   }
 };
 
-// Login driver
 const loginDriver = async (req, res) => {
   try {
-    const { driver_id } = req.body;
-    const driver = await findDriverById(driver_id);
+    const { car_number } = req.body;
+    const driver = await findDriverByCarNumber(car_number);
     if (!driver) return res.status(404).json({ error: "Driver not found" });
 
     const token = jwt.sign({ id: driver.id, role: "driver", userType: "driver" }, process.env.JWT_SECRET, { expiresIn: "8h" });
@@ -28,7 +26,6 @@ const loginDriver = async (req, res) => {
   }
 };
 
-// Get rides for a driver
 const getDriverRides = async (req, res) => {
   try {
     const driver_id = req.user.id;
@@ -39,7 +36,6 @@ const getDriverRides = async (req, res) => {
   }
 };
 
-// Accept ride
 const acceptRide = async (req, res) => {
   try {
     const ride_id = req.params.id;
@@ -53,7 +49,6 @@ const acceptRide = async (req, res) => {
   }
 };
 
-// Reject ride
 const rejectRide = async (req, res) => {
   try {
     const ride_id = req.params.id;
@@ -65,7 +60,6 @@ const rejectRide = async (req, res) => {
   }
 };
 
-// Logout
 const logoutDriver = (req, res) => {
   res.json({ message: "Logout successful" });
 };

@@ -7,12 +7,10 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
-    // Block driver registration via user API
     if (role === "driver") {
       return res.status(400).json({ message: "Use the driver signup form to register as a driver." });
     }
 
-    // Validate role
     if (role && !["user", "driver", "admin"].includes(role)) {
       return res.status(400).json({ message: "Invalid role" });
     }
@@ -23,7 +21,6 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await createUser(name, email, hashedPassword, role || "user");
     
-    // Remove password from response
     const { password: _, ...userWithoutPassword } = newUser;
     
     res.status(201).json(userWithoutPassword);
@@ -47,7 +44,6 @@ const loginUser = async (req, res) => {
       { expiresIn: "8h" }
     );
 
-    // Remove password from response
     const { password: _, ...userWithoutPassword } = user;
 
     res.json({ 

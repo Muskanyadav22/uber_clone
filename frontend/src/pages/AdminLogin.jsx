@@ -2,8 +2,9 @@ import { useState } from "react";
 import API from "../services/api";
 import { useNavigate } from "react-router-dom";
 
+
 export default function AdminLogin() {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -18,8 +19,8 @@ export default function AdminLogin() {
     setLoading(true);
     setError("");
     try {
-      const res = await API.post("/users/login", { ...form });
-      if (res.data.token && res.data.user?.role === "admin") {
+      const res = await API.post("/admin/login", form);
+      if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("role", "admin");
         navigate("/admin");
@@ -39,10 +40,10 @@ export default function AdminLogin() {
       {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
         <input
-          type="email"
-          name="email"
-          placeholder="Admin Email"
-          value={form.email}
+          type="text"
+          name="username"
+          placeholder="Admin Username"
+          value={form.username}
           onChange={handleChange}
           required
         />

@@ -32,7 +32,7 @@ export default function DriverDashboard() {
     try {
       await API.patch(`/rides/${rideId}/accept`);
       setSuccess("Ride accepted successfully");
-      fetchRides(); // Refresh the list
+      fetchRides(); 
       setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
       setError("Failed to accept ride");
@@ -43,7 +43,7 @@ export default function DriverDashboard() {
     try {
       await API.put(`/drivers/${rideId}/reject`);
       setSuccess("Ride rejected successfully");
-      fetchRides(); // Refresh the list
+      fetchRides(); 
       setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
       setError("Failed to reject ride");

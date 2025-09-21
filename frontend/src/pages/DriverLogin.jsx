@@ -3,7 +3,7 @@ import API from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 export default function DriverLogin() {
-  const [form, setForm] = useState({ driver_id: "" });
+  const [form, setForm] = useState({ car_number: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -35,10 +35,10 @@ export default function DriverLogin() {
       {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
         <input
-          type="number"
-          name="driver_id"
-          placeholder="Driver ID"
-          value={form.driver_id}
+          type="text"
+          name="car_number"
+          placeholder="Car Number"
+          value={form.car_number}
           onChange={handleChange}
           required
         />

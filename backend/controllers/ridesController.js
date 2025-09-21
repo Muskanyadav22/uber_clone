@@ -1,13 +1,11 @@
 const { createRide, getAllRides, getRideById, getPendingRides, updateRideStatus, deleteRide, getRidesByRiderId } = require("../models/rideModel");
 const { getAllDrivers, updateDriverStatus } = require("../models/driverModel");
 
-// Rider creates ride with automatic driver assignment
 const createRideController = async (req, res) => {
   try {
     const { pickup, destination } = req.body;
     const rider_id = req.user.id;
 
-    // Find available driver
     const drivers = await getAllDrivers();
     const availableDriver = drivers.find(d => d.status === "available");
 
@@ -26,13 +24,11 @@ const createRideController = async (req, res) => {
 
 const getAllRidesController = async (req, res) => {
   try {
-    // If user is rider, only show their rides
     if (req.user.role === "user") {
       const rides = await getRidesByRiderId(req.user.id);
       return res.json(rides);
     }
     
-    // Admin and drivers see all rides
     const rides = await getAllRides();
     res.json(rides);
   } catch (err) {
@@ -45,7 +41,6 @@ const getRideByIdController = async (req, res) => {
     const ride = await getRideById(req.params.id);
     if (!ride) return res.status(404).json({ message: "Ride not found" });
     
-    // Check if user has access to this ride
     if (req.user.role === "user" && ride.rider_id !== req.user.id) {
       return res.status(403).json({ error: "Access denied" });
     }
@@ -83,14 +78,13 @@ const acceptRideController = async (req, res) => {
   try {
     const rideId = req.params.id;
     const driverId = req.user.id;
-    // Update ride status to 'accepted' and assign driver
     const updatedRide = await updateRideStatus(rideId, "accepted", driverId);
     if (!updatedRide) return res.status(404).json({ message: "Ride not found" });
-    // Optionally, update driver status to busy
+    
     await updateDriverStatus(driverId, "busy");
     res.json(updatedRide);
   } catch (err) {
-    console.error("Error in acceptRideController:", err); // Log error to terminal
+    console.error("Error in acceptRideController:", err); 
     res.status(500).json({ error: err.message });
   }
 };

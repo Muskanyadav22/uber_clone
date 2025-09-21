@@ -25,7 +25,7 @@ export default function DriverSignup() {
       setForm({ name: "", car_number: "" });
       setTimeout(() => {
         setSuccess("");
-        navigate("/driver-login"); // Redirect to driver login after signup
+        navigate("/driver-login");
       }, 3000);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to register as driver");

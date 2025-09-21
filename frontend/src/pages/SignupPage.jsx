@@ -18,11 +18,6 @@ function SignupPage() {
     setLoading(true);
     setError("");
     try {
-      if (form.role === "driver") {
-        setError("Please use the Driver Signup form to register as a driver.");
-        setLoading(false);
-        return;
-      }
       await API.post("/users/register", form);
       alert("Signup successful! Please login.");
       navigate("/login");
@@ -60,11 +55,6 @@ function SignupPage() {
           onChange={handleChange} 
           required 
         />
-
-        <select name="role" value={form.role} onChange={handleChange}>
-          <option value="user">Rider</option>
-          <option value="driver">Driver</option>
-        </select>
 
         <button type="submit" disabled={loading}>
           {loading ? "Creating Account..." : "Sign Up"}

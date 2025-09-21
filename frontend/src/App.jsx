@@ -12,12 +12,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import "./styles/global.css";
 import DriverLogin from "./pages/DriverLogin";
 import RoleSelect from "./components/RoleSelect";
+import AdminLogin from "./pages/AdminLogin";
 
 function App() {
   return (
     <>
       <Navbar />
-      <Routes>
+  <Routes>
+  <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/login-select" element={<RoleSelect type="login" />} />
         <Route path="/signup-select" element={<RoleSelect type="signup" />} />

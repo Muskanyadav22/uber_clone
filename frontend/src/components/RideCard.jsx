@@ -15,6 +15,7 @@ export default function RideCard({ ride, onAccept, onReject, showActions = false
       <p><strong>Pickup:</strong> {ride.pickup}</p>
       <p><strong>Destination:</strong> {ride.destination}</p>
       <p><strong>Status:</strong> <span className={getStatusClass(ride.status)}>{ride.status}</span></p>
+      {ride.fare !== undefined && <p><strong>Fare:</strong> ₹{ride.fare}</p>}
       {ride.driver_name && <p><strong>Driver:</strong> {ride.driver_name}</p>}
       {ride.rider_name && <p><strong>Rider:</strong> {ride.rider_name}</p>}
       

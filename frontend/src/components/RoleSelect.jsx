@@ -10,11 +10,9 @@ export default function RoleSelect({ type }) {
     if (type === "login") {
       if (role === "user") navigate("/login");
       if (role === "driver") navigate("/driver-login");
-      if (role === "admin") navigate("/admin-login");
     } else {
       if (role === "user") navigate("/signup");
       if (role === "driver") navigate("/driver-signup");
-      if (role === "admin") navigate("/admin-signup");
     }
   };
 
@@ -25,7 +23,6 @@ export default function RoleSelect({ type }) {
         <option value="">Select Role</option>
         <option value="user">Rider</option>
         <option value="driver">Driver</option>
-        <option value="admin">Admin</option>
       </select>
       <button onClick={handleContinue} disabled={!role} style={{ marginTop: 16 }}>
         Continue

@@ -10,7 +10,6 @@ const authMiddleware = (requiredRole = null) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = decoded;
 
-      // Check both role and userType for compatibility
       const userRole = decoded.role || decoded.userType;
       
       if (requiredRole && userRole !== requiredRole) {

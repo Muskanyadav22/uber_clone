@@ -13,6 +13,11 @@ const findDriverById = async (id) => {
   return result.rows[0];
 };
 
+const findDriverByCarNumber = async (car_number) => {
+  const result = await pool.query("SELECT * FROM drivers WHERE car_number=$1", [car_number]);
+  return result.rows[0];
+};
+
 const getAllDrivers = async () => {
   const result = await pool.query("SELECT id, name, car_number, status FROM drivers");
   return result.rows;
@@ -26,4 +31,4 @@ const updateDriverStatus = async (id, status) => {
   return result.rows[0];
 };
 
-module.exports = { createDriver, findDriverById, getAllDrivers, updateDriverStatus };
+module.exports = { createDriver, findDriverById, findDriverByCarNumber, getAllDrivers, updateDriverStatus };

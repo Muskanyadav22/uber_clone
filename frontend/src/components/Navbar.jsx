@@ -13,13 +13,14 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <Link to="/" className="navbar-brand">UberClone 🚖</Link>
+      <Link to="/" className="navbar-brand">UrbanRide</Link>
       <div className="navbar-links">
         <Link to="/">Home</Link>
         {!token && (
           <>
             <Link to="/login-select">Login</Link>
             <Link to="/signup-select">Signup</Link>
+            <Link to="/admin-login" style={{ fontWeight: 600, color: '#c00' }}>Admin Login</Link>
           </>
         )}
         {token && (

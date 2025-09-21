@@ -1,7 +1,6 @@
 const { Pool } = require("pg");
 require("dotenv").config();
 
-// Validate environment variables - using the correct variable names from your .env
 if (!process.env.DB_USER || !process.env.DB) {
   console.error("Missing required database environment variables");
   console.log("Current environment variables:", {
@@ -18,11 +17,10 @@ const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.HOST || "localhost",
   database: process.env.DB,
-  password: process.env.DB_PASS || "", // Empty string if no password
+  password: process.env.DB_PASS || "", 
   port: process.env.DB_PORT || 5432,
 });
 
-// Test database connection
 pool.connect((err, client, release) => {
   if (err) {
     console.error('Error acquiring client', err.message);
@@ -33,7 +31,6 @@ pool.connect((err, client, release) => {
   }
 });
 
-// Handle connection errors
 pool.on('error', (err) => {
   console.error('Unexpected error on idle client', err);
   process.exit(-1);

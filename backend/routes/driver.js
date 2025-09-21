@@ -3,11 +3,9 @@ const router = express.Router();
 const { signupDriver, loginDriver, getDriverRides, acceptRide, rejectRide, logoutDriver } = require("../controllers/driverController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-// Public
 router.post("/signup", signupDriver);
 router.post("/login", loginDriver);
 
-// Protected
 router.get("/rides", authMiddleware("driver"), getDriverRides);
 router.put("/:id/accept", authMiddleware("driver"), acceptRide);
 router.put("/:id/reject", authMiddleware("driver"), rejectRide);
